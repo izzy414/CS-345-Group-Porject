@@ -16,7 +16,7 @@ public class MinimumPriorityQueue<T> {
 	}
 
 	public Node dequeue() {
-		// removes and returns the node with the minimum priority.
+		// Removes and returns the node with the minimum priority.
 		return priorityQueue.poll();
 		//return null;
 	}
