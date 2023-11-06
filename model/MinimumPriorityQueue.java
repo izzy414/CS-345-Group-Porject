@@ -1,20 +1,23 @@
 package model;
 
 public class MinimumPriorityQueue<T> {
-
+	// Creates the Minimum PriorityQueue.
+	PriorityQueue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(n -> n.priority));
+	
 	public void enqueue(Node node) {
-		// TODO Auto-generated method stub
-		
+		// Adds the node to the queue.
+		priorityQueue.add(node);
 	}
 
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		// Returns the size of the queue.
+		return priorityQueue.size();
+		//return 0;
 	}
 
 	public Node dequeue() {
-		// TODO Auto-generated method stub
-		return null;
+		// removes and returns the node with the minimum priority.
+		return priorityQueue.poll();
+		//return null;
 	}
-
 }
