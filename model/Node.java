@@ -26,6 +26,10 @@ public class Node implements Comparable<Node> {
 	public int compareTo(Node other) {
 		return weight - other.weight;
 	}
+
+	public int compareToChar(Node other) {
+		return symbol - other.symbol;
+	}
 	
 	/// Output the entire tree for debugging use.
 	public String toString() {
