@@ -17,8 +17,8 @@ public class HuffmanEncoding {
 	public String compressThenExpand(String message) {
 		Node root = createTree(message);
 		String compressedMessage = compressMessage(root, message);
-		String expandedMessage = expandMessage(root, compressedMessage);
-		return compressedMessage + "\n" + expandedMessage;
+		String decompressMessage = decompressMessage(root, compressedMessage);
+		return compressedMessage + "\n" + decompressMessage;
 	}
 	
 	// compress message.
@@ -26,9 +26,23 @@ public class HuffmanEncoding {
 		return null;
 	}
 	
-	// expand compressed message using codes.
-	private String expandMessage(Node root, String message) {
-		return null;
+	//Decode message using codes.
+	private String decompressMessage(Node root, String message) {
+		StringBuilder decodedMessage = new StringBuilder();
+                Node curNode = root;
+
+                for (char bit : message.toCharArray()) {
+                        if (bit == '0') {
+                                curNode = curNode.getZero();
+                        } else if (bit == '1') {
+                                curNode = curNode.getOne();
+                        }
+                        if (curNode.getZero() == null && curNode.getOne() == null) {
+                                decodedMessage.append(curNode.getSymbol());
+                                curNode = root;
+                        }
+                }
+                return decodedMessage.toString();
 	}
 	
 	// build optimal prefix-free code from message and make a huffman tree.
