@@ -66,13 +66,13 @@ class Heap<E extends Comparable<Node>> {
 	private boolean compare(Node node1, Node node2) {
 		// First checks if the node frequencies are equal, then checks 
 		// which char alphabetically comes first
-		if (node1.getWeight() == node2.getWeight()) {
+		if (node1.getFreq() == node2.getFreq()) {
 			return compareChar(node1,node2);
 			// what happens if two characters have the same weight
 		}
 		// If priorities are not equal
 		else {
-			return node1.getWeight() < node2.getWeight();}
+			return node1.getFreq() < node2.getFreq();}
 	}
 	
 	/** compareChar is a method to check which node char

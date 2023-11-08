@@ -1,6 +1,5 @@
 package model;
 
-import java.io.OutputStream;
 import java.util.Scanner;
 
 public class HuffmanEncoding {
@@ -9,17 +8,18 @@ public class HuffmanEncoding {
 			while (scanner.hasNext()) {
 				String message = scanner.nextLine();
 				HuffmanEncoding encoding = new HuffmanEncoding();
-				encoding.compressThenExpand(message, System.out);
+				String output = encoding.compressThenExpand(message);
+				System.out.println(output);
 			}
 		}
 	}
 	
-	public void compressThenExpand(String message, OutputStream outStream) {
+	public String compressThenExpand(String message) {
 		Node root = createTree(message);
+		System.out.println("NODE:" + root);
 		String compressedMessage = compressMessage(root, message);
-		System.out.println(compressedMessage);
 		String expandedMessage = expandMessage(root, compressedMessage);
-		System.out.println(expandedMessage);
+		return compressedMessage + "\n" + expandedMessage;
 	}
 	
 	// compress message.
@@ -30,7 +30,6 @@ public class HuffmanEncoding {
 	
 	// build optimal prefix-free code from message and make a huffman tree.
 	private Node createTree(String message) {
-		// TODO: We have to build our own priority queue class: https://piazza.com/class/ll46ptlxkia7ah/post/251
 		// We are skipping using a HashTable, like was done here: https://aquarchitect.github.io/swift-algorithm-club/Huffman%20Coding/
 		// Except instead of storing the character frequencies as nodes in an array (like that article did), we will just store them as integers in an array
 		// and each index of the 256-index array corresponds to a character code in ASCII.
@@ -45,7 +44,7 @@ public class HuffmanEncoding {
 			// Join the next two nodes with the lowest frequency.
 			Node child1 = nodes.dequeue();
 			Node child2 = nodes.dequeue();
-			Node parent = new Node(child1.getWeight() + child2.getWeight(), child1, child2);
+			Node parent = new Node(child1.getFreq() + child2.getFreq(), child1, child2);
 			nodes.enqueue(parent);
 		}
 		

@@ -16,12 +16,9 @@ class CompressionTest {
 		String testInput = "aaa";
 		String expectedOutput = "000";
 		
-		HuffmanEncoding a = new HuffmanEncoding();
-		ByteArrayInputStream in = new ByteArrayInputStream(testInput.getBytes());
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		a.compress(in, out);
+		HuffmanEncoding encoding = new HuffmanEncoding();
+		String actualOutput = encoding.compressThenExpand(testInput);
 		
-		String actualOutput = new String(out.toByteArray());
 		assertEquals(expectedOutput, actualOutput);
 	}
 
