@@ -21,6 +21,18 @@ public class Node implements Comparable<Node> {
 		zero.parent = this;
 		one.parent = this;
 	}
+
+	public Node getZero() {
+                return zero;
+        }
+
+        public Node getOne() {
+                return one;
+        }
+
+        public char getSymbol() {
+                return symbol;
+        }
 	
 	public int getFreq() {
 		return freq;
