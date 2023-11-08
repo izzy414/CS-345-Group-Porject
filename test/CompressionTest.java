@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream;
 
 import org.junit.jupiter.api.Test;
 
-import model.HuffmanCoding;
+import model.HuffmanEncoding;
 
 class CompressionTest {
 
@@ -16,7 +16,7 @@ class CompressionTest {
 		String testInput = "aaa";
 		String expectedOutput = "000";
 		
-		HuffmanCoding a = new HuffmanCoding();
+		HuffmanEncoding a = new HuffmanEncoding();
 		ByteArrayInputStream in = new ByteArrayInputStream(testInput.getBytes());
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		a.compress(in, out);

@@ -4,30 +4,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class HuffmanCoding {
-	public void compress(InputStream inStream, OutputStream outStream) {
-		OutputBitstream out = new OutputBitstream(outStream);
+public class HuffmanEncoding {
+	public void compressThenExpand(InputStream inStream, OutputStream outStream) {
 		String noncompressedMessage = readMessage(inStream);
 		Node root = createTree(noncompressedMessage);
-		writeTreeAndMessage(root, noncompressedMessage, out);
+		String compressedMessage = compressMessage(root, noncompressedMessage);
+		System.out.println(compressedMessage);
+		String expandedMessage = expandMessage(root, compressedMessage);
+		System.out.println(expandedMessage);
 	}
 	
-	/// O(N)
-	public void expand(InputStream inStream, OutputStream outStream) {
-		InputBitstream in = new InputBitstream(inStream);
-		Node root = readTree(in);
-		expandCompressedMessageUsingTree(in, root);
-	}
-	
-	// read huffman tree from file.
-	private Node readTree(InputBitstream in) {
-		return null;
-	}
-	
-	// compress message and write it along with huffman tree to file.
-	private void writeTreeAndMessage(Node root, String message, OutputBitstream out) {
+	// compress message.
+	private String compressMessage(Node root, String message) {
 		// Idea for approach came from: https://stackoverflow.com/a/759738
-		// TODO: May have to call out.flush() after writing everything: https://stackoverflow.com/a/21666005
+		return null;
 	}
 	
 	// read message
@@ -91,7 +81,7 @@ public class HuffmanCoding {
 	}
 	
 	// expand compressed message using codes.
-	private void expandCompressedMessageUsingTree(InputBitstream in, Node root) {
-		
+	private String expandMessage(Node root, String message) {
+		return null;
 	}
 }
