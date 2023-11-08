@@ -24,7 +24,11 @@ public class HuffmanEncoding {
 	
 	// compress message.
 	private String compressMessage(Node root, String message) {
-		// Idea for approach came from: https://stackoverflow.com/a/759738
+		return null;
+	}
+	
+	// expand compressed message using codes.
+	private String expandMessage(Node root, String message) {
 		return null;
 	}
 	
@@ -73,10 +77,5 @@ public class HuffmanEncoding {
 			freqs[asciiCode]++;
 		}
 		return freqs;
-	}
-	
-	// expand compressed message using codes.
-	private String expandMessage(Node root, String message) {
-		return null;
 	}
 }
