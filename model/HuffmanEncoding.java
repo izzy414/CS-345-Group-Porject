@@ -16,7 +16,6 @@ public class HuffmanEncoding {
 	
 	public String compressThenExpand(String message) {
 		Node root = createTree(message);
-		System.out.println("NODE:" + root);
 		String compressedMessage = compressMessage(root, message);
 		String expandedMessage = expandMessage(root, compressedMessage);
 		return compressedMessage + "\n" + expandedMessage;

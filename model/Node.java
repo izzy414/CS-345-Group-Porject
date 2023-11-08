@@ -41,13 +41,13 @@ public class Node implements Comparable<Node> {
 	/// Output the entire tree for debugging use.
 	public String toString() {
 		if (zero == null && one == null) {
-			return symbol + Integer.toString(freq);
+			return symbol + "=" + Integer.toString(freq);
 		} else if (one == null) {
-			return symbol + Integer.toString(freq) + "0(" + zero.toString() + ")";
+			return symbol + "=" + Integer.toString(freq) + "0(" + zero.toString() + ")";
 		} else if (zero == null) {
-			return symbol + Integer.toString(freq) + "1(" + one.toString() + ")";
+			return symbol + "=" + Integer.toString(freq) + "1(" + one.toString() + ")";
 		} else {
-			return symbol + Integer.toString(freq) + "0(" + zero.toString() + ")" + "1(" + one.toString() + ")";
+			return symbol + "=" + Integer.toString(freq) + "0(" + zero.toString() + ")" + "1(" + one.toString() + ")";
 		}
 	}
 }
