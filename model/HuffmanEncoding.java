@@ -1,14 +1,22 @@
 package model;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Scanner;
 
 public class HuffmanEncoding {
-	public void compressThenExpand(InputStream inStream, OutputStream outStream) {
-		String noncompressedMessage = readMessage(inStream);
-		Node root = createTree(noncompressedMessage);
-		String compressedMessage = compressMessage(root, noncompressedMessage);
+	public static void main(String[] args) {
+		try (Scanner scanner = new Scanner(System.in)) {
+			while (scanner.hasNext()) {
+				String message = scanner.nextLine();
+				HuffmanEncoding encoding = new HuffmanEncoding();
+				encoding.compressThenExpand(message, System.out);
+			}
+		}
+	}
+	
+	public void compressThenExpand(String message, OutputStream outStream) {
+		Node root = createTree(message);
+		String compressedMessage = compressMessage(root, message);
 		System.out.println(compressedMessage);
 		String expandedMessage = expandMessage(root, compressedMessage);
 		System.out.println(expandedMessage);
@@ -18,18 +26,6 @@ public class HuffmanEncoding {
 	private String compressMessage(Node root, String message) {
 		// Idea for approach came from: https://stackoverflow.com/a/759738
 		return null;
-	}
-	
-	// read message
-	private String readMessage(InputStream in) {
-		// Note: bytes in Java are smaller data types than chars, so we are
-		// safe treating bytes as characters.
-		byte[] messageChars = null;
-		try {
-			messageChars = in.readAllBytes();
-		} catch (IOException e) {}
-		String message = new String(messageChars);
-		return message;
 	}
 	
 	// build optimal prefix-free code from message and make a huffman tree.
