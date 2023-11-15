@@ -23,7 +23,38 @@ public class HuffmanEncoding {
 	
 	// compress message.
 	private String compressMessage(Node root, String message) {
-		return null;
+		Node curNode = root;
+		StringBuilder encodedMessage = new StringBuilder();
+		for (char bit : message.toCharArray()) {
+			encodedMessage = dfs(curNode, encodedMessage, bit, 0);
+		}
+		return encodedMessage.toString();
+	}
+
+	private StringBuilder dfs(Node root, StringBuilder encodedMessage, char bit, int level) {
+		Node curNode = root;
+		if (curNode.getSymbol() != 0) {
+			if (curNode.getSymbol() == bit) {
+				addDummyValues(encodedMessage, level);
+				return encodedMessage;
+			}
+		}
+		
+		if (curNode.getSymbol() == 0 && curNode.getZero() != null) {
+			level++;
+			encodedMessage.append('0');
+			encodedMessage = dfs(curNode.getZero(), encodedMessage, bit, level);
+			encodedMessage.deleteCharAt(encodedMessage.length() - 1);
+			level--;
+		}
+		if (curNode.getSymbol() == 0 && curNode.getOne() != null) {
+			level++;
+			encodedMessage.append('1');
+			encodedMessage = dfs(curNode.getOne(), encodedMessage, bit, level);
+			encodedMessage.deleteCharAt(encodedMessage.length() - 1);
+			level--;
+		}
+		return encodedMessage;
 	}
 	
 	//Decode message using codes.
@@ -43,6 +74,17 @@ public class HuffmanEncoding {
                         }
                 }
                 return decodedMessage.toString();
+	}
+
+	/**
+	 * Adds dummy values at the end of the encoded message to be removed by dfs
+	 * once the correct character is found
+	 */
+	private void addDummyValues(StringBuilder encodedMessage, int level) {
+		int i;
+		for (i = 0; i < level; i++) {
+			encodedMessage.append('$');
+		}
 	}
 	
 	// build optimal prefix-free code from message and make a huffman tree.
