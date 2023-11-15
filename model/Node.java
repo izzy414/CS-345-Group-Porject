@@ -18,6 +18,7 @@ public class Node implements Comparable<Node> {
 		this.freq = freq;
 		this.zero = zero;
 		this.one = one;
+		this.symbol = 0;
 		zero.parent = this;
 		one.parent = this;
 	}
