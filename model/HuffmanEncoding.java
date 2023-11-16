@@ -28,7 +28,7 @@ public class HuffmanEncoding {
 		Node root = createTree(message);
 		String compressedMessage = compressMessage(root, message);
 		String decompressMessage = decompressMessage(root, compressedMessage);
-		return compressedMessage + "\n" + decompressMessage;
+		return  "\nCompressed Message: " + compressedMessage + "\nDecompressed Message: " + decompressMessage;
 	}
 	
 	// Accepts the root and string as arguents then uses a depth for search traversal (a.k.a the dfs function) to go 
