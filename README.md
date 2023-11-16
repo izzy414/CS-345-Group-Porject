@@ -20,11 +20,9 @@ This module requires no additional modules.
 
 # Configuration
 
-1. Go into the model directory.
-2. Run javac *.java to compile all the java files in the model directory (or whatever software used to compile).
-3. Step out of the model directory and into the CS-345-Group-Project directory.
-4. Run java model.HuffmanEncoding to initiate the program (or whatever software used to run).
-5. Input string into the console and wait for directed output (i.e. tree, table, coded message, and decoded message).
+1. Run javac model/*.java to compile all the java files in the model directory (or whatever software used to compile).
+2. Run java model.HuffmanEncoding to initiate the program (or whatever software used to run).
+3. Input string into the console and wait for directed output (i.e. tree, table, coded message, and decoded message).
 
 
 # Authors
