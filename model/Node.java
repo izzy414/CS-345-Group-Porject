@@ -23,22 +23,27 @@ public class Node implements Comparable<Node> {
 		one.parent = this;
 	}
 
+	// Used to access this Node's zero in the HuffmanEncoding class.
 	public Node getZero() {
                 return zero;
         }
 
+	// Used to access this Node's one in the HuffmanEncoding class.
         public Node getOne() {
                 return one;
         }
 
+	// Used to access this Node's symbol in the HuffmanEncoding class.
         public char getSymbol() {
                 return symbol;
         }
-	
+
+	// Used to access this Node's frequency count in the HuffmanEncoding class.
 	public int getFreq() {
 		return freq;
 	}
-	
+
+	// Used to access this Node's zero in the HuffmanEncoding class.
 	public Node getParent() {
 		return parent;
 	}
@@ -50,7 +55,8 @@ public class Node implements Comparable<Node> {
 	public int compareToChar(Node other) {
 		return symbol - other.symbol;
 	}
-	
+
+	// NOTE: Is this being used?
 	/// Output the entire tree for debugging use.
 	public String toString() {
 		if (zero == null && one == null) {
