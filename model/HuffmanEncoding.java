@@ -11,6 +11,7 @@ public class HuffmanEncoding {
 				String output = encoding.compressThenExpand(message);
 				Node root = encoding.createTree(message);
 				encoding.printTree(root);
+				encoding.printTable(root);
 				System.out.println(output);
 			}
 		}
@@ -87,6 +88,31 @@ public class HuffmanEncoding {
 		for (i = 0; i < level; i++) {
 			encodedMessage.append('$');
 		}
+	}
+	public void printTable(Node root) {
+		System.out.println("**** TABLE *****");
+		System.out.println("Char │ Code");
+		System.out.println("─────┼──────────");
+		preOrder(root, "");
+	}
+	
+	private void preOrder(Node root, String code) {
+		if (root ==null) {
+			return;
+		}
+		if (root.getOne()!= null) {
+			preOrder(root.getOne(), code+"1");
+		}
+		
+		if (root.getZero()!= null) {
+			preOrder(root.getZero(), code+"0");
+		}
+		
+		if (root.getOne()== null && root.getZero()== null) {
+			System.out.println("\""+root.getSymbol()+"\"  │ "+code);
+			return;
+		}
+		
 	}
 
 	public void printTree(Node root) {
