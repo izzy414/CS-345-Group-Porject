@@ -22,7 +22,7 @@ This module requires no additional modules.
 
 1. Run javac *.java to compile all the java files in the model file (or whatever software used to compile).
 2. Run java HuffmanEncoding to initiate the program (or whatever software used to run).
-3. Input string into the console and wait for directed output (i.e. coded message, decoded message and table).
+3. Input string into the console and wait for directed output (i.e. coded message, decoded message, tree, and table).
 
 
 # Authors
