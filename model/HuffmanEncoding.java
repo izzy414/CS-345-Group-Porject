@@ -31,7 +31,7 @@ public class HuffmanEncoding {
 		return  "\nCompressed Message: " + compressedMessage + "\nDecompressed Message: " + decompressMessage;
 	}
 	
-	// Accepts the root and string as arguents then uses a depth for search traversal (a.k.a the dfs function) to go 
+	// Accepts the root and string as arguents then uses a depth-first search traversal (a.k.a the dfs function) to go 
 	// through the tree to get the codes for each letter, appending it to the returned string.
 	private String compressMessage(Node root, String message) {
 		Node curNode = root;
@@ -42,7 +42,7 @@ public class HuffmanEncoding {
 		return encodedMessage.toString();
 	}
 
-	// Is the depth for search traversal through the tree that takes the root, the current string of encodedMessage, 
+	// Is the depth-first search traversal through the tree that takes the root, the current string of encodedMessage, 
 	// the bit and the level it's at.
 	private StringBuilder dfs(Node root, StringBuilder encodedMessage, char bit, int level) {
 		Node curNode = root;
