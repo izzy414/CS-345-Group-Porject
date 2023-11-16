@@ -9,6 +9,8 @@ public class HuffmanEncoding {
 				String message = scanner.nextLine();
 				HuffmanEncoding encoding = new HuffmanEncoding();
 				String output = encoding.compressThenExpand(message);
+				Node root = encoding.createTree(message);
+				encoding.printTree(root);
 				System.out.println(output);
 			}
 		}
@@ -86,6 +88,96 @@ public class HuffmanEncoding {
 			encodedMessage.append('$');
 		}
 	}
+
+	public void printTree(Node root) {
+		String layer = "";
+		if (root == null) {
+			return;
+		}
+		if (root.getOne() != null) {
+			printDiagram(root,true, "", layer,0);
+		}
+		
+		else if (root.getZero() != null) {
+			printDiagram(root,false, "", layer,0);
+		}
+	}
+
+	
+	/** nodeStr - Returns a string value of either the frequency or a character
+	 * @param root - Node object that is either an internal or external node
+	 * @return	A string of the node's value
+	 */
+	private String nodeStr(Node root) {
+		String temp = "";
+		if (root.getZero() == null && root.getOne() == null) {
+			temp = "(\""+root.getSymbol()+"\")";
+		}
+		else {
+			temp = "("+root.getFreq()+")";
+		}
+		return temp;
+	}
+	
+	
+	/** printDiagram - It prints the Huffman Tree at 270º turned. Internal nodes will print out their 
+	 * 				frequencies and external nodes will print out the characters they hold. 
+	 * 
+	 * How it works - It uses an inorder traversal to print out the nodes. Otherwise, it will start printing the 
+	 * 				tree line by line, layer by layer. Each layer will be a string. Each time it recurses, we check 
+	 * 				for the root node. By implementing a level variable, it can detect the root node and makes sure 
+	 * 				to only print the root value. If it is the root node, we do not add anything other than the space 
+	 * 				and the node value.
+	 * 				Then it determines whether we should concatenate an internal node value(frequency) or external 
+	 * 				node value (character). This decision gets decided by a helper function. After the 
+	 * 				layer has been constructed and the value from the node, we print this and continue until it 
+	 * 				reaches the most left side of the tree.
+	 * 
+	 * @param node 			- A Node object, used to print the value (frequency or character) and traverse the tree
+	 * @param hasRightChild - A boolean, it will switch from true and false within the function, depends on if a left
+	 * 							node is found or a right node is present
+	 * @param indent		- A string which will determine how far back the nodes will get printed at
+	 * @param layer			- A string that will get constructed based on the node values, indentations, and branches
+	 * @param level			- A integer that describes the level of the tree, used mostly to detect the root
+	 */
+	private void printDiagram(Node node, boolean hasRightChild, String indent, String layer, int level) {
+		
+		if (node.getZero() != null) {
+			// The right side of the node is found, so hasRightChild is true
+			String temp = hasRightChild ? "        ": " │      ";
+			printDiagram(node.getZero(), true, indent+temp,"", level+1);
+		}
+		layer+= indent;
+		if (hasRightChild && (level!=0)) {
+			// Without level!=0, it could accidently print out an upper left corner 
+			layer += " ┌";
+		}
+		else if (!hasRightChild && level!=0){
+			// Without level!=0, it could accidently print out an lower left corner 
+			layer += " └";
+		}
+		if (level!= 0) {
+			// Adds a line, or branch
+			layer+= "─────";
+		}
+		else if (level ==0) {
+			// root is found, we align so the branches connect to the right ')'
+			int dsplcemt = nodeStr(node).length() - 3;
+			if (dsplcemt > 3) {
+				for (int i=0; i< dsplcemt-3;i++) {
+					layer+=" ";
+				}
+			}
+			layer+="      ";
+		}
+		System.out.println(layer+nodeStr(node));
+		if (node.getOne() != null) {
+			String temp = hasRightChild&&(level!=0) ? " │      ": "        ";
+			// The left side of the node is found, we set hasRightChild as false to explore
+			// the left side of the tree
+			printDiagram(node.getOne(), false, indent+temp,"",level+1);
+		}
+	}	
 	
 	// build optimal prefix-free code from message and make a huffman tree.
 	private Node createTree(String message) {
