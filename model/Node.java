@@ -38,7 +38,7 @@ public class Node implements Comparable<Node> {
                 return symbol;
         }
 
-	// Used to access this Node's frequency count in the HuffmanEncoding class.
+	// Used to access this Node's frequency count in the MimumPriorityQueue class.
 	public int getFreq() {
 		return freq;
 	}
@@ -47,11 +47,13 @@ public class Node implements Comparable<Node> {
 	public Node getParent() {
 		return parent;
 	}
-	
+
+	// Used to acess and compare this Node's frequency count to another in the MimumPriorityQueue class.
 	public int compareTo(Node other) {
 		return freq - other.freq;
 	}
 
+	// Used to acess and compare this Node's character to another in the MimumPriorityQueue class.
 	public int compareToChar(Node other) {
 		return symbol - other.symbol;
 	}
