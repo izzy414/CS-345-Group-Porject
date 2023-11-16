@@ -38,7 +38,7 @@ public class Node implements Comparable<Node> {
                 return symbol;
         }
 
-	// Used to access this Node's frequency count in the MimumPriorityQueue class.
+	// Used to access this Node's frequency count in the MimumPriorityQueue class and the HuffmanEncoding Class.
 	public int getFreq() {
 		return freq;
 	}
