@@ -3,7 +3,7 @@
 Our program prompts the user for a string and then uses that string to create a tree that has a unique path for each individual 
 character made up of 1’s and 0’s. Then it traverses through the tree to print out the new unique codes associated with that letter 
 for each letter until the end of the string. Once the new code is displayed it uses that code along with the tree to decode 
-it to the original string message and displays a table version of the tree it used to decode the string.
+it to the original string message and displays the tree and a table version of the tree it used to decode the string.
 
 
 # Table of contents
