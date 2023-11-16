@@ -2,7 +2,12 @@ package model;
 
 import java.util.Scanner;
 
+// The HuffmanEncoding class is the main class for the program that takes the user input and uses that along with
+// the MinimumPriorityQueue class and the Node class to print out compressed message, decompressed message, binary tree, and
+// table from the user input.
 public class HuffmanEncoding {
+	// Accepts the user input and sends it to the compressThenExpand function and the createTree function while then 
+	// sending that data to the printTree function and the printTable function.
 	public static void main(String[] args) {
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (scanner.hasNext()) {
@@ -16,7 +21,9 @@ public class HuffmanEncoding {
 			}
 		}
 	}
-	
+
+	// Accepts the string as an arugment, creates the tree based off that string and sends both the root 
+	// and string to the compressMessage and decompressMessage functions before printing out their results.
 	public String compressThenExpand(String message) {
 		Node root = createTree(message);
 		String compressedMessage = compressMessage(root, message);
@@ -24,7 +31,8 @@ public class HuffmanEncoding {
 		return compressedMessage + "\n" + decompressMessage;
 	}
 	
-	// compress message.
+	// Accepts the root and string as arguents then uses a depth for search traversal (a.k.a the dfs function) to go 
+	// through the tree to get the codes for each letter, appending it to the returned string.
 	private String compressMessage(Node root, String message) {
 		Node curNode = root;
 		StringBuilder encodedMessage = new StringBuilder();
@@ -34,6 +42,8 @@ public class HuffmanEncoding {
 		return encodedMessage.toString();
 	}
 
+	// Is the depth for search traversal through the tree that takes the root, the current string of encodedMessage, 
+	// the bit and the level it's at.
 	private StringBuilder dfs(Node root, StringBuilder encodedMessage, char bit, int level) {
 		Node curNode = root;
 		if (curNode.getSymbol() != 0) {
@@ -60,7 +70,7 @@ public class HuffmanEncoding {
 		return encodedMessage;
 	}
 	
-	//Decode message using codes.
+	// Takes the root and the string that was compressed as an argument to traverse through the tree to decode the message.
 	private String decompressMessage(Node root, String message) {
 		StringBuilder decodedMessage = new StringBuilder();
                 Node curNode = root;
@@ -115,6 +125,8 @@ public class HuffmanEncoding {
 		
 	}
 
+	// Takes the root of the tree as an argument and initializes the making of the tree by sending it to 
+	// the printDiagram function.
 	public void printTree(Node root) {
 		String layer = "";
 		if (root == null) {
@@ -216,6 +228,7 @@ public class HuffmanEncoding {
 		return root;
 	}
 
+	// Combines the character nodes and builds a Huffman tree until it gets to the last node.
 	private Node combineCharNodesAndBuildTree(MinimumPriorityQueue<Node> nodes) {
 		while (nodes.size() > 1) {
 			// Join the next two nodes with the lowest frequency.
@@ -231,6 +244,7 @@ public class HuffmanEncoding {
 		return root;
 	}
 
+	// Creates a Minimum Priority Queue heap based off the array of frequencies.
 	private MinimumPriorityQueue<Node> createSortedCharNodes(int[] freqs) {
 		MinimumPriorityQueue<Node> queue = new MinimumPriorityQueue<Node>();
 		for (char asciiCode = 0; asciiCode < 256; asciiCode++) {
@@ -242,6 +256,7 @@ public class HuffmanEncoding {
 		return queue;
 	}
 
+	// Creates an array of frequency counts of each character that's used in the string for the tree.
 	private int[] countCharacterFrequencies(String message) {
 		// Note: Default value is 0 in each index of an integer array in Java. 
 		int[] freqs = new int[256];
