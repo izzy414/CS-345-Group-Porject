@@ -13,17 +13,21 @@ public class HuffmanEncoding {
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (scanner.hasNext()) {
 				String message = scanner.nextLine();
-				String nonCompressedMessage = getBinaryString(message);
-				HuffmanEncoding encoding = new HuffmanEncoding();
-				String output = encoding.compressThenExpand(message);
-				Node root = encoding.createTree(message);
-				encoding.printTree(root);
-				encoding.printTable(root);
-				System.out.println(output);
-				System.out.println("Orignal encoding without compressing: " 
-				+ nonCompressedMessage);
+				perform(message);
 			}
 		}
+	}
+	
+	public static void perform(String message) {
+		String nonCompressedMessage = getBinaryString(message);
+		HuffmanEncoding encoding = new HuffmanEncoding();
+		String output = encoding.compressThenExpand(message);
+		Node root = encoding.createTree(message);
+		encoding.printTree(root);
+		encoding.printTable(root);
+		System.out.println(output);
+		System.out.println("Original encoding without compressing: " 
+		+ nonCompressedMessage);
 	}
 
 	public static String getBinaryString(String msg) {
