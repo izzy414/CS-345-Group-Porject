@@ -6,6 +6,7 @@ import java.util.Scanner;
 // the MinimumPriorityQueue class and the Node class to print out compressed message, decompressed message, binary tree, and
 // table from the user input.
 public class HuffmanEncoding {
+	private int height;
 	// Accepts the user input and sends it to the compressThenExpand function and the createTree function while then 
 	// sending that data to the printTree function and the printTable function.
 	public static void main(String[] args) {
@@ -179,6 +180,33 @@ public class HuffmanEncoding {
 			return;
 		}
 	}
+	
+	private void preOrderPrint(Node root, String code) {
+		if (root ==null) {
+			return;
+		}
+		
+		if (root.getOne()!= null) {
+			preOrderPrint(root.getOne(), code+"1");
+		}
+		
+		if (root.getZero()!= null) {
+			preOrderPrint(root.getZero(), code+"0");
+		}
+		
+		if (root.getOne()== null && root.getZero()== null) {
+			
+			if (root.getParent()==null) {
+				String format = format(height, "1");
+				System.out.println("│ \""+root.getSymbol()+"\"  │ 1"+format);
+			}
+			else {
+				String format = format(height, code);
+				System.out.println("│ \""+root.getSymbol()+"\"  │ "+code+format);
+			}
+			return;
+		}
+	}
 
 	private String format(int height, String code) {
 		String retVal = " ";
@@ -213,15 +241,23 @@ public class HuffmanEncoding {
 	// the printDiagram function.
 	public void printTree(Node root) {
 		String layer = "";
+		System.out.println("****  TREE  ****");
 		if (root == null) {
 			return;
 		}
 		if (root.getOne() != null) {
 			printDiagram(root,true, "", layer,0);
+			System.out.println();
 		}
 		
 		else if (root.getZero() != null) {
 			printDiagram(root,false, "", layer,0);
+			System.out.println();
+		}
+		
+		else if(root.getZero()==null && root.getOne()==null) {
+			printDiagram(root,false, "", layer,0);
+			System.out.println();
 		}
 	}
 
