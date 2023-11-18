@@ -99,30 +99,114 @@ public class HuffmanEncoding {
 			encodedMessage.append('$');
 		}
 	}
+
+	/** findHighestLevel - Finds the height of the tree
+	 * @param root	- Node object, the root of the tree
+	 * @return
+	 */
+	private void findHeight(Node root) {
+		preOrder(root, 0);
+	}
+	
+	
+	/** preOrder - Does a preorder traversal to find the height of the tree,
+	 * 				updates the height value
+	 * @param root	- Node object, the root node of the tree 
+	 * @param height- Integer, the current nodes height 
+	 */
+	private void preOrder(Node root,int height) {
+		if (root == null) {
+			return;
+		}
+		if (height > this.height) {
+			this.height = height;
+		}
+		preOrder(root.getOne(), height+1);
+		preOrder(root.getZero(), height+1);
+	}
+	
 	public void printTable(Node root) {
+		findHeight(root);
 		System.out.println("**** TABLE *****");
-		System.out.println("Char │ Code");
-		System.out.println("─────┼──────────");
-		preOrder(root, "");
+		String line1 = "──────";
+		String line2 = "──────";
+		String line3 = "└──────┴";
+		String space = " ";
+		for (int i=0; i< height-4;i++) {
+			line1+= "─";
+			line2+= "─";
+			space+= " ";
+		}
+
+		line1+= "┐";
+		line2+= "┤";
+		space+= "│";
+		
+		for (int i=0; i<line1.length()-1;i++) {
+			line3+= "─";
+		}
+		line3+= "┘";
+		System.out.println("┌──────┬"+line1);
+		System.out.println("│ Char │ Code"+space);
+		System.out.println("├──────┼"+line2);
+		preOrderPrint(root, "");
+		System.out.println(line3);
 	}
 	
 	private void preOrder(Node root, String code) {
 		if (root ==null) {
 			return;
 		}
+		
 		if (root.getOne()!= null) {
-			preOrder(root.getOne(), code+"1");
+			preOrderPrint(root.getOne(), code+"1");
 		}
 		
 		if (root.getZero()!= null) {
-			preOrder(root.getZero(), code+"0");
+			preOrderPrint(root.getZero(), code+"0");
 		}
 		
 		if (root.getOne()== null && root.getZero()== null) {
-			System.out.println("\""+root.getSymbol()+"\"  │ "+code);
+			
+			if (root.getParent()==null) {
+				String format = format(height, "1");
+				System.out.println("│ \""+root.getSymbol()+"\"  │ 1"+format);
+			}
+			else {
+				String format = format(height, code);
+				System.out.println("│ \""+root.getSymbol()+"\"  │ "+code+format);
+			}
 			return;
 		}
-		
+	}
+
+	private String format(int height, String code) {
+		String retVal = " ";
+		int cdLen = code.length();
+		for (int i=0; i<height-cdLen;i++) {
+			retVal+=" ";
+		}
+		if (height < 4) {
+			// Special case where the for statement never runs
+			boolean flag = true;
+			// When code length is 1 and the height is greater than 0
+			if (cdLen==1 && height>0 ) {
+				if (!(cdLen==1 && height ==1)) {
+					cdLen++;
+				}
+			}
+			else {
+				if (height-1 == cdLen) {
+					cdLen++;
+				}
+			}
+			// Runs for statement after the code length has been "updated"
+			for (int i=cdLen; i<4;i++) {
+				retVal+=" ";
+			}
+		}
+		retVal+= "│";
+		return retVal;
 	}
 
 	// Takes the root of the tree as an argument and initializes the making of the tree by sending it to 
@@ -147,14 +231,24 @@ public class HuffmanEncoding {
 	 * @return	A string of the node's value
 	 */
 	private String nodeStr(Node root) {
-		String temp = "";
+		String retStr = "";
 		if (root.getZero() == null && root.getOne() == null) {
-			temp = "(\""+root.getSymbol()+"\")";
+			// External Node is passed in
+			if (root.getParent() == null) {
+				// Tree is made of only one node, we print the frequency then the character
+				// i.e. (frequency) ───── (character)
+				retStr = "("+root.getFreq()+")─────(\""+root.getSymbol()+"\")";
+			}
+			else {
+				// Returns the character value formatted, "(symbol)"
+				retStr = "(\""+root.getSymbol()+"\")";
+			}
 		}
 		else {
-			temp = "("+root.getFreq()+")";
+			// Returns frequency value formatted, "(frequency)"
+			retStr = "("+root.getFreq()+")";
 		}
-		return temp;
+		return retStr;
 	}
 	
 	
@@ -187,11 +281,11 @@ public class HuffmanEncoding {
 		}
 		layer+= indent;
 		if (hasRightChild && (level!=0)) {
-			// Without level!=0, it could accidently print out an upper left corner 
+			// Without level==0, it could mistakenly print out an upper left corner 
 			layer += " ┌";
 		}
 		else if (!hasRightChild && level!=0){
-			// Without level!=0, it could accidently print out an lower left corner 
+			// Without level==0, it could mistakenly print out an lower left corner 
 			layer += " └";
 		}
 		if (level!= 0) {
