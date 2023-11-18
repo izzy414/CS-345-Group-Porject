@@ -49,6 +49,9 @@ public class HuffmanEncoding {
 		Node curNode = root;
 		if (curNode.getSymbol() != 0) {
 			if (curNode.getSymbol() == bit) {
+				if (level == 0) {
+					encodedMessage.append('1');
+				}
 				addDummyValues(encodedMessage, level);
 				return encodedMessage;
 			}
@@ -81,6 +84,9 @@ public class HuffmanEncoding {
                                 curNode = curNode.getZero();
                         } else if (bit == '1') {
                                 curNode = curNode.getOne();
+                        }
+			if (curNode == null) {
+                        	curNode = root;
                         }
                         if (curNode.getZero() == null && curNode.getOne() == null) {
                                 decodedMessage.append(curNode.getSymbol());
