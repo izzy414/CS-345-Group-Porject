@@ -26,8 +26,6 @@ public class HuffmanEncoding {
 		encoding.printTree(root);
 		encoding.printTable(root);
 		System.out.println(output);
-		System.out.println("Original encoding without compressing: " 
-		+ nonCompressedMessage);
 	}
 
 	public static String getBinaryString(String msg) {
@@ -45,7 +43,11 @@ public class HuffmanEncoding {
 		Node root = createTree(message);
 		String compressedMessage = compressMessage(root, message);
 		String decompressMessage = decompressMessage(root, compressedMessage);
-		return  "\nCompressed Message: " + compressedMessage + "\nDecompressed Message: " + decompressMessage;
+		String nonCompressedMessage = getBinaryString(message);
+		return  "\nCompressed Message: " + compressedMessage + "\nDecompressed Message: " + decompressMessage
+				+ "\nOriginal encoding without compressing: " + nonCompressedMessage + 
+				"\n" + (nonCompressedMessage.length() - compressedMessage.length()) + 
+				" characters longer than message compressed with huffman encoding";
 	}
 	
 	// Accepts the root and string as arguents then uses a depth-first search traversal (a.k.a the dfs function) to go 

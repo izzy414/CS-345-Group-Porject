@@ -10,4 +10,3 @@
 
 Compressed Message: 111
 Decompressed Message: bbb
-Original encoding without compressing: 110001011000101100010
