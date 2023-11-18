@@ -10,7 +10,7 @@ it to the original string message and displays the tree and a table version of t
 
 - Requirements
 - Configuration
-- Contributors
+- Authors
 
 
 # Requirements
