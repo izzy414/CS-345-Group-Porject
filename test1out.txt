@@ -10,3 +10,5 @@
 
 Compressed Message: 111
 Decompressed Message: bbb
+Original encoding without compressing: 011000100110001001100010
+21 characters longer than message compressed with huffman encoding
