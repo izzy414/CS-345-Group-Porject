@@ -28,39 +28,39 @@ class HuffmanEncodingTest {
 		String in12 = "10";
 		
 		String expectedOut = "";
-		String expectedOut2 = "1100001"; // a
-		String expectedOut3 = "1100010"; // b
-		String expectedOut4 = "1100001" // a
-				+ "1100010" // b
-				+ "1100011"; // c
-		String expectedOut5 = "1000001"; // A
-		String expectedOut6 = "1000001" // A
-				+ "1100010" // b
-				+ "1000011"; // C
-		String expectedOut7 = "100000"; // space
-		String expectedOut8 = "1000001" // A
-				+ "100000" // space
-				+ "1100010" // b
-				+ "1000011"; // C
-		String expectedOut9 = "100000" // space
-				+ "1100011" // c
-				+ "1110101" // u
-				+ "1110000" // p
-				+ "100000" // space
-				+ "1101111" // o
-				+ "1100110" // f
-				+ "100000" // space
-				+ "1110111" // w
-				+ "1100001" // a
-				+ "1010100" // T
-				+ "1100101" // e
-				+ "1110010" // r
-				+ "100000" // space
-				+ "100000"; // space
-		String expectedOut10 = "110000"; // 0
-		String expectedOut11 = "110001"; // 1
-		String expectedOut12 = "110001" // 1
-				+ "110000"; // 0
+		String expectedOut2 = "01100001"; // a
+		String expectedOut3 = "01100010"; // b
+		String expectedOut4 = "01100001" // a
+				+ "01100010" // b
+				+ "01100011"; // c
+		String expectedOut5 = "01000001"; // A
+		String expectedOut6 = "01000001" // A
+				+ "01100010" // b
+				+ "01000011"; // C
+		String expectedOut7 = "00100000"; // space
+		String expectedOut8 = "01000001" // A
+				+ "00100000" // space
+				+ "01100010" // b
+				+ "01000011"; // C
+		String expectedOut9 = "00100000" // space
+				+ "01100011" // c
+				+ "01110101" // u
+				+ "01110000" // p
+				+ "00100000" // space
+				+ "01101111" // o
+				+ "01100110" // f
+				+ "00100000" // space
+				+ "01110111" // w
+				+ "01100001" // a
+				+ "01010100" // T
+				+ "01100101" // e
+				+ "01110010" // r
+				+ "00100000" // space
+				+ "00100000"; // space
+		String expectedOut10 = "00110000"; // 0
+		String expectedOut11 = "00110001"; // 1
+		String expectedOut12 = "00110001" // 1
+				+ "00110000"; // 0
 		
 		String actualOut = HuffmanEncoding.getBinaryString(in);
 		String actualOut2 = HuffmanEncoding.getBinaryString(in2);
