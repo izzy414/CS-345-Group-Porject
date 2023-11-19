@@ -28,11 +28,6 @@ public class MinimumPriorityQueue {
 			}
 		}
 		
-		for (Node n : heap) {
-			System.out.print(n);
-		}
-		System.out.println();
-		
 		// Put our heap array in min-heap order.
 		heapify();
 	}
@@ -48,18 +43,6 @@ public class MinimumPriorityQueue {
 			// all nodes from [start] to the end of the heap array
 			// are in heap order.
 			bubbleDown(start);
-			/*System.out.print(heap[start]);
-			if (left(start) < heap.length) {
-				System.out.print(heap[left(start)]);
-				if (right(start) < heap.length) {
-					System.out.print(heap[right(start)]);
-				}
-			}
-			System.out.println();*/
-			for (Node n : heap) {
-				System.out.print(n);
-			}
-			System.out.println();
 			
 			// Go to the next node that may not be in heap order.
 			start--;
