@@ -163,8 +163,8 @@ public class MinimumPriorityQueue {
 	 * @return N/A
 	 */
 	public void enqueue(Node newNode) {
+		heap[1+size] = newNode;
 		size++;
-		heap[size] = newNode;
 		bubbleUp(size);
 	}
 
