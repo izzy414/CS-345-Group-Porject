@@ -372,7 +372,7 @@ public class HuffmanEncoding {
 	}	
 	
 	// build optimal prefix-free code from message and make a huffman tree.
-	private Node createTree(String message) {
+	public Node createTree(String message) {
 		// We are skipping using a HashTable, like was done here: https://aquarchitect.github.io/swift-algorithm-club/Huffman%20Coding/
 		// Except instead of storing the character frequencies as nodes in an array (like that article did), we will just store them as integers in an array
 		// and each index of the 256-index array corresponds to a character code in ASCII.
