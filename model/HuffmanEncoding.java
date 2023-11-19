@@ -2,57 +2,70 @@ package model;
 
 import java.util.Scanner;
 
-// The HuffmanEncoding class is the main class for the program that takes the user input and uses that along with
-// the MinimumPriorityQueue class and the Node class to print out compressed message, decompressed message, binary tree, and
-// table from the user input.
+//The HuffmanEncoding class is the main class for the program that takes the user input and uses that along with
+//the MinimumPriorityQueue class and the Node class to print out compressed message, decompressed message, binary tree, and
+//table from the user input.
 public class HuffmanEncoding {
 	private int height;
-	// Accepts the user input and sends it to the compressThenExpand function and the createTree function while then 
+	// Accepts the user input and sends it to the compressThenExpand function and
+	// the createTree function while then
 	// sending that data to the printTree function and the printTable function.
 	public static void main(String[] args) {
 		try (Scanner scanner = new Scanner(System.in)) {
 			while (scanner.hasNext()) {
 				String message = scanner.nextLine();
-				perform(message);
+				String nonCompressedMessage = getBinaryString(message);
+				HuffmanEncoding encoding = new HuffmanEncoding();
+				String output = encoding.compressThenExpand(message);
+				Node root = encoding.createTree(message);
+				encoding.printTree(root);
+				encoding.printTable(root);
+				System.out.println(output);
 			}
 		}
 	}
-	
-	public static void perform(String message) {
-		String nonCompressedMessage = getBinaryString(message);
-		HuffmanEncoding encoding = new HuffmanEncoding();
-		String output = encoding.compressThenExpand(message);
-		Node root = encoding.createTree(message);
-		encoding.printTree(root);
-		encoding.printTable(root);
-		System.out.println(output);
-	}
 
+	/// Returns a string representation of the base-2 unsigned integer
+	/// representation of the ASCII code of each character in [msg].
 	public static String getBinaryString(String msg) {
 		String str = "";
 		for (char bit : msg.toCharArray()) {
-			str += Integer.toBinaryString(bit);
-			//System.out.println(Integer.toBinaryString(bit));
+			String binary = Integer.toBinaryString(bit);
+			str += padBinaryString(binary);
 		}
 		return str;
 	}
+	
+	private static String padBinaryString(String binary) {
+		int diff = 8 - binary.length();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < diff; i++) {
+			sb.append('0');
+		}
+		sb.append(binary);
+		return sb.toString();
+	}
 
-	// Accepts the string as an arugment, creates the tree based off that string and sends both the root 
-	// and string to the compressMessage and decompressMessage functions before printing out their results.
+	// Accepts the string as an argument, creates the tree based off that string and
+	// sends both the root
+	// and string to the compressMessage and decompressMessage functions before
+	// printing out their results.
 	public String compressThenExpand(String message) {
 		Node root = createTree(message);
 		String compressedMessage = compressMessage(root, message);
 		String decompressMessage = decompressMessage(root, compressedMessage);
 		String nonCompressedMessage = getBinaryString(message);
-		return  "\nCompressed Message: " + compressedMessage + "\nDecompressed Message: " + decompressMessage
-				+ "\nOriginal encoding without compressing: " + nonCompressedMessage + 
-				"\n" + (nonCompressedMessage.length() - compressedMessage.length()) + 
-				" characters longer than message compressed with huffman encoding";
+		return "\nCompressed Message: " + compressedMessage + "\nDecompressed Message: " + decompressMessage
+				+ "\nOriginal encoding without compressing: " + nonCompressedMessage + "\n"
+				+ (nonCompressedMessage.length() - compressedMessage.length())
+				+ " characters longer than message compressed with huffman encoding";
 	}
-	
-	// Accepts the root and string as arguents then uses a depth-first search traversal (a.k.a the dfs function) to go 
-	// through the tree to get the codes for each letter, appending it to the returned string.
-	private String compressMessage(Node root, String message) {
+
+	// Accepts the root and string as arguments then uses a depth-first search
+	// traversal (a.k.a the dfs function) to go
+	// through the tree to get the codes for each letter, appending it to the
+	// returned string.
+	public String compressMessage(Node root, String message) {
 		Node curNode = root;
 		StringBuilder encodedMessage = new StringBuilder();
 		for (char bit : message.toCharArray()) {
@@ -61,7 +74,8 @@ public class HuffmanEncoding {
 		return encodedMessage.toString();
 	}
 
-	// Is the depth-first search traversal through the tree that takes the root, the current string of encodedMessage, 
+	// Is the depth-first search traversal through the tree that takes the root, the
+	// current string of encodedMessage,
 	// the bit and the level it's at.
 	private StringBuilder dfs(Node root, StringBuilder encodedMessage, char bit, int level) {
 		Node curNode = root;
@@ -74,7 +88,7 @@ public class HuffmanEncoding {
 				return encodedMessage;
 			}
 		}
-		
+
 		if (curNode.getSymbol() == 0 && curNode.getZero() != null) {
 			level++;
 			encodedMessage.append('0');
@@ -91,32 +105,33 @@ public class HuffmanEncoding {
 		}
 		return encodedMessage;
 	}
-	
-	// Takes the root and the string that was compressed as an argument to traverse through the tree to decode the message.
-	private String decompressMessage(Node root, String message) {
-		StringBuilder decodedMessage = new StringBuilder();
-                Node curNode = root;
 
-                for (char bit : message.toCharArray()) {
-                        if (bit == '0') {
-                                curNode = curNode.getZero();
-                        } else if (bit == '1') {
-                                curNode = curNode.getOne();
-                        }
+	// Takes the root and the string that was compressed as an argument to traverse
+	// through the tree to decode the message.
+	public String decompressMessage(Node root, String message) {
+		StringBuilder decodedMessage = new StringBuilder();
+		Node curNode = root;
+
+		for (char bit : message.toCharArray()) {
+			if (bit == '0') {
+				curNode = curNode.getZero();
+			} else if (bit == '1') {
+				curNode = curNode.getOne();
+			}
 			if (curNode == null) {
-                        	curNode = root;
-                        }
-                        if (curNode.getZero() == null && curNode.getOne() == null) {
-                                decodedMessage.append(curNode.getSymbol());
-                                curNode = root;
-                        }
-                }
-                return decodedMessage.toString();
+				curNode = root;
+			}
+			if (curNode.getZero() == null && curNode.getOne() == null) {
+				decodedMessage.append(curNode.getSymbol());
+				curNode = root;
+			}
+		}
+		return decodedMessage.toString();
 	}
 
 	/**
-	 * Adds dummy values at the end of the encoded message to be removed by dfs
-	 * once the correct character is found
+	 * Adds dummy values at the end of the encoded message to be removed by dfs once
+	 * the correct character is found
 	 */
 	private void addDummyValues(StringBuilder encodedMessage, int level) {
 		int i;
@@ -124,15 +139,14 @@ public class HuffmanEncoding {
 			encodedMessage.append('$');
 		}
 	}
-
-	/** findHighestLevel - Finds the height of the tree
+	
+	/** findHeight - Finds the height of the tree
 	 * @param root	- Node object, the root of the tree
 	 * @return
 	 */
 	private void findHeight(Node root) {
 		preOrder(root, 0);
 	}
-	
 	
 	/** preOrder - Does a preorder traversal to find the height of the tree,
 	 * 				updates the height value
@@ -178,33 +192,6 @@ public class HuffmanEncoding {
 		System.out.println(line3);
 	}
 	
-	private void preOrder(Node root, String code) {
-		if (root ==null) {
-			return;
-		}
-		
-		if (root.getOne()!= null) {
-			preOrderPrint(root.getOne(), code+"1");
-		}
-		
-		if (root.getZero()!= null) {
-			preOrderPrint(root.getZero(), code+"0");
-		}
-		
-		if (root.getOne()== null && root.getZero()== null) {
-			
-			if (root.getParent()==null) {
-				String format = format(height, "1");
-				System.out.println("│ \""+root.getSymbol()+"\"  │ 1"+format);
-			}
-			else {
-				String format = format(height, code);
-				System.out.println("│ \""+root.getSymbol()+"\"  │ "+code+format);
-			}
-			return;
-		}
-	}
-	
 	private void preOrderPrint(Node root, String code) {
 		if (root ==null) {
 			return;
@@ -231,7 +218,7 @@ public class HuffmanEncoding {
 			return;
 		}
 	}
-
+	
 	private String format(int height, String code) {
 		String retVal = " ";
 		int cdLen = code.length();
@@ -260,7 +247,7 @@ public class HuffmanEncoding {
 		retVal+= "│";
 		return retVal;
 	}
-
+	
 	// Takes the root of the tree as an argument and initializes the making of the tree by sending it to 
 	// the printDiagram function.
 	public void printTree(Node root) {
@@ -284,7 +271,6 @@ public class HuffmanEncoding {
 			System.out.println();
 		}
 	}
-
 	
 	/** nodeStr - Returns a string value of either the frequency or a character
 	 * @param root - Node object that is either an internal or external node
@@ -310,7 +296,6 @@ public class HuffmanEncoding {
 		}
 		return retStr;
 	}
-	
 	
 	/** printDiagram - It prints the Huffman Tree at 270º turned. Internal nodes will print out their 
 	 * 				frequencies and external nodes will print out the characters they hold. 
@@ -370,20 +355,43 @@ public class HuffmanEncoding {
 			printDiagram(node.getOne(), false, indent+temp,"",level+1);
 		}
 	}	
-	
+
 	// build optimal prefix-free code from message and make a huffman tree.
 	public Node createTree(String message) {
-		// We are skipping using a HashTable, like was done here: https://aquarchitect.github.io/swift-algorithm-club/Huffman%20Coding/
-		// Except instead of storing the character frequencies as nodes in an array (like that article did), we will just store them as integers in an array
-		// and each index of the 256-index array corresponds to a character code in ASCII.
-		int[] freqs = countCharacterFrequencies(message);
-		MinimumPriorityQueue<Node> chars = createSortedCharNodes(freqs);
+		// We are skipping using a HashTable, like was done here:
+		// https://aquarchitect.github.io/swift-algorithm-club/Huffman%20Coding/
+		// Except instead of storing the character frequencies as nodes in an array
+		// (like that article did), we will just store them as integers in an array
+		// and each index of the 256-index array corresponds to a character code in
+		// ASCII.
+
+		// Count character frequencies and number of unique characters in the message
+		int[] freqs = new int[256];
+		int symbolCount = 0;
+		for (int i = 0; i < message.length(); i++) {
+			char asciiCode = message.charAt(i);
+			if (freqs[asciiCode] == 0) {
+				// We found a new character.
+				symbolCount++;
+			}
+			freqs[asciiCode]++;
+		}
+
+		// Create a minimum priority queue of char nodes for every unique character,
+		// sorted based on each character's frequency in the original message.
+		MinimumPriorityQueue chars = new MinimumPriorityQueue(freqs, symbolCount);
+
 		Node root = combineCharNodesAndBuildTree(chars);
 		return root;
 	}
 
-	// Combines the character nodes and builds a Huffman tree until it gets to the last node.
-	private Node combineCharNodesAndBuildTree(MinimumPriorityQueue<Node> nodes) {
+	// Combines the character nodes and builds a Huffman tree until it gets to the
+	// last node.
+	private Node combineCharNodesAndBuildTree(MinimumPriorityQueue nodes) {
+		if (nodes.isEmpty()) {
+			return null;
+		}
+
 		while (nodes.size() > 1) {
 			// Join the next two nodes with the lowest frequency.
 			Node child1 = nodes.dequeue();
@@ -391,33 +399,10 @@ public class HuffmanEncoding {
 			Node parent = new Node(child1.getFreq() + child2.getFreq(), child1, child2);
 			nodes.enqueue(parent);
 		}
-		
+
 		// We have only one node left in our queue.
 		// This must be the root node of our Huffman tree.
 		Node root = nodes.dequeue();
 		return root;
-	}
-
-	// Creates a Minimum Priority Queue heap based off the array of frequencies.
-	private MinimumPriorityQueue<Node> createSortedCharNodes(int[] freqs) {
-		MinimumPriorityQueue<Node> queue = new MinimumPriorityQueue<Node>();
-		for (char asciiCode = 0; asciiCode < 256; asciiCode++) {
-			int freq = freqs[asciiCode];
-			if (freq > 0) {
-				queue.enqueue(new Node(asciiCode, freq));
-			}
-		}
-		return queue;
-	}
-
-	// Creates an array of frequency counts of each character that's used in the string for the tree.
-	private int[] countCharacterFrequencies(String message) {
-		// Note: Default value is 0 in each index of an integer array in Java. 
-		int[] freqs = new int[256];
-		for (int i = 0; i < message.length(); i++) {
-			char asciiCode = message.charAt(i);
-			freqs[asciiCode]++;
-		}
-		return freqs;
 	}
 }

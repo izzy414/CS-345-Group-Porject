@@ -1,40 +1,69 @@
 package model;
-
-public class MinimumPriorityQueue<T extends Comparable<Node>> {
-	// Creates the Minimum PriorityQueue.
-	private Heap<T> MinQueue;
-	private int size;
-	
-	public MinimumPriorityQueue() {
-		MinQueue = new Heap<T>();
-	}
-	
-	public void enqueue(Node node) {
-		// Adds the node to the queue.
-		MinQueue.add(node);
-	}
-
-	public int size() {
-		// Returns the size of the queue.
-		return MinQueue.size();
-		//return 0;
-	}
-
-	public Node dequeue() {
-		// Removes and returns the node with the minimum priority.
-		return MinQueue.poll();
-		//return null;
-	}
-}
-
-class Heap<E extends Comparable<Node>> {
+/* MinimumPriorityQueue.
+ * 
+ * This is a minimum priority queue backed by an array that maintains min-heap order.
+ * 
+ * Author: Jose ___, Michael Sava
+ * 
+ */
+public class MinimumPriorityQueue {
 	private Node[] heap;
-	private static final int INTIAL_CAPACITY = 5;
 	private int size;
-	public Heap() {
-		heap = new Node[INTIAL_CAPACITY];
+	
+	public MinimumPriorityQueue(int[] freqs, int symbolCount) {
+		// The most values we can possibly have in our heap at one time is 1+symbolCount (one char node for each unique ASCII character in the original message, plus the null value at index zero).
+		// Since symbolCount will only ever be as large as 256, this is not much space being used up in the worst case and so we will hard code this heap size to 1+symbolCount and never resize
+		// this heap to make it smaller as we dequeue from the minimum priority queue. This way, we don't need to implement resize or take it into account.
+		heap = new Node[1+symbolCount];
 		heap[0] = null; // the element at index 0
 		size = 0;
+		
+		// Fill in each index of our heap array.
+		for (char asciiCode = 0; asciiCode < 256; asciiCode++) {
+			int freq = freqs[asciiCode];
+			if (freq > 0) {
+				// insert at 1+size to account for the null value at index zero.
+				heap[1+size] = (new Node(asciiCode, freq));
+				size++;
+			}
+		}
+		
+		for (Node n : heap) {
+			System.out.print(n);
+		}
+		System.out.println();
+		
+		// Put our heap array in min-heap order.
+		heapify();
+	}
+	
+	// Order the heap array so that the smallest value is at the root
+	private void heapify() {
+		// Get the first node that is not an external node.
+		int start = parent(heap.length-1);
+		
+		// Bubble down nodes until we reach the head of the heap array.
+		while (start > 0) {
+			// Bubble down the node at index [start] so that
+			// all nodes from [start] to the end of the heap array
+			// are in heap order.
+			bubbleDown(start);
+			/*System.out.print(heap[start]);
+			if (left(start) < heap.length) {
+				System.out.print(heap[left(start)]);
+				if (right(start) < heap.length) {
+					System.out.print(heap[right(start)]);
+				}
+			}
+			System.out.println();*/
+			for (Node n : heap) {
+				System.out.print(n);
+			}
+			System.out.println();
+			
+			// Go to the next node that may not be in heap order.
+			start--;
+		}
 	}
 	
 	/** parent is a method that gets the parent of i, if there is one
@@ -68,7 +97,7 @@ class Heap<E extends Comparable<Node>> {
 		// which char alphabetically comes first
 		if (node1.getFreq() == node2.getFreq()) {
 			return compareChar(node1,node2);
-			// what happens if two characters have the same weight
+			// what happens if two characters have the same frequency
 		}
 		// If priorities are not equal
 		else {
@@ -129,50 +158,21 @@ class Heap<E extends Comparable<Node>> {
 		}
 	}
 	
-	/** add is a method that adds a Node object to the heap
-	 * @param newPatient is a Node object that will be added
+	/** enqueue is a method that adds a Node object to the heap
+	 * @param newNode is a Node object that will be added
 	 * @return N/A
 	 */
-	public void add(Node newNode) {
+	public void enqueue(Node newNode) {
 		size++;
-		if (size>= heap.length-1)
-			resize(2*heap.length);
 		heap[size] = newNode;
 		bubbleUp(size);
 	}
 
-	/** resize is a method that resizes the heap when it gets full
-	 * of Node objects, so more room can be created
-	 * @param capacity is an integer that might be the 
-	 * 	new capacity of the heap
-	 * @return N/A
-	 */
-	private void resize(int capacity) 
-	{
-		// a temporary Node array is created to maintain
-		// the current elements but a new capacity
-		Node[] temp = new Node[capacity];
-		size = capacity < size ? capacity:size;
-		for (int i=0;i< size;i++) {
-			temp[i] = heap[i];
-			}
-		heap = temp;
-	}
-	
-	/** get is a method that retrieves and returns a Node object
-	 * @param i is an integer that represents the location of the 
-	 * 	Node object that is wanted
-	 * @return a Node object
-	 */
-	public Node get(int i) {
-		return heap[i];
-	}
-
-	/** remove is a method to remove the first patient in the queue
+	/** dequeue is a method to remove the first patient in the queue
 	 * @param N/A
 	 * @return the first patient in the queue which is a Node object
 	 */
-	public Node poll()
+	public Node dequeue()
 	{
 		if (isEmpty())
 			return null;
@@ -191,22 +191,9 @@ class Heap<E extends Comparable<Node>> {
 	 */
 	public boolean isEmpty() {return size == 0;}
 
-	/** size is a method to get the size of the heap
+	/** size is a method to get the size of the queue
 	 * @param N/A
-	 * @return an integer representation of the size of the heap
+	 * @return an integer representation of the size of the queue
 	 */
 	public int size() {return size;}
-
-	/** toString is a method to represent the heap in a String
-	 * @param N/A
-	 * @return a string representation of the heap
-	 */
-	public String toString()
-	{
-		String strHeap = "{";
-		// i=1, to skip over the null value at heap[0]
-		for (int i = 1; i <= size; i++)
-			strHeap += (i == 1 ? "" : ", ") + heap[i];
-		return strHeap + "}";
-	}
 }
