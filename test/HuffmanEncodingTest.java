@@ -94,34 +94,28 @@ class HuffmanEncodingTest {
 		ByteArrayInputStream stream = new ByteArrayInputStream((
 				"a\n"
 				+ "b\n"
+				+ "aB\n"
 				+ "A\n"
 				+ "hi\n"
 				+ "hI there\n").getBytes());
 		try (Scanner scanner = new Scanner(stream)) {
 			HuffmanEncoding encoding = new HuffmanEncoding();
 			
-			// "a\n"
+			// "a"
 			Node root = encoding.createTree(scanner.nextLine());
 			assertEquals(1, root.getFreq());
 			assertEquals('a', root.getSymbol());
 			assertNull(root.getZero());
 			assertNull(root.getOne());
 			
-			// "b\n"
+			// "b"
 			root = encoding.createTree(scanner.nextLine());
 			assertEquals(1, root.getFreq());
 			assertEquals('b', root.getSymbol());
 			assertNull(root.getZero());
 			assertNull(root.getOne());
 			
-			// "A\n"
-			root = encoding.createTree(scanner.nextLine());
-			assertEquals(1, root.getFreq());
-			assertEquals('A', root.getSymbol());
-			assertNull(root.getZero());
-			assertNull(root.getOne());
-			
-			// "hi\n"
+			// "aB"
 			root = encoding.createTree(scanner.nextLine());
 			assertEquals(2, root.getFreq());
 			assertEquals('\0', root.getSymbol());
@@ -132,11 +126,32 @@ class HuffmanEncodingTest {
 			// When zero and one have the same frequency, the zero
 			// node should be the one with the smaller
 			// lexicographic character.
+			assertEquals('B', zero.getSymbol());
+			assertNotNull(one);
+			assertEquals(1, one.getFreq());
+			assertEquals('a', one.getSymbol());
+			
+			// "A"
+			root = encoding.createTree(scanner.nextLine());
+			assertEquals(1, root.getFreq());
+			assertEquals('A', root.getSymbol());
+			assertNull(root.getZero());
+			assertNull(root.getOne());
+			
+			// "hi"
+			root = encoding.createTree(scanner.nextLine());
+			assertEquals(2, root.getFreq());
+			assertEquals('\0', root.getSymbol());
+			zero = root.getZero();
+			one = root.getOne();
+			assertNotNull(zero);
+			assertEquals(1, zero.getFreq());
 			assertEquals('h', zero.getSymbol());
+			assertNotNull(one);
 			assertEquals(1, one.getFreq());
 			assertEquals('i', one.getSymbol());
 			
-			// "hI there\n"
+			// "hI there"
 			// tree should look like: (_ means space character)
 			//        8
 			//    4       4
@@ -171,20 +186,78 @@ class HuffmanEncodingTest {
 	}
 	
 	@Test
-	void testCanCompressMessageFromScannerLines() {
+	void testCanCompressThenDecompressMessageFromScannerLines() {
 		ByteArrayInputStream stream = new ByteArrayInputStream((
 				"a\n"
 				+ "b\n"
+				+ "aB\n"
+				+ "Ab\n"
 				+ "A\n"
 				+ "hi\n"
 				+ "hI there\n").getBytes());
 		try (Scanner scanner = new Scanner(stream)) {
 			HuffmanEncoding encoding = new HuffmanEncoding();
 			
+			// "a"
 			String message = scanner.nextLine();
 			Node root = encoding.createTree(message);
-			//encoding.compressMessage(root, message);
-			// TODO: Do asserts here
+			String encoded = encoding.compressMessage(root, message);
+			assertEquals("1", encoded);
+			String decoded = encoding.decompressMessage(root, encoded);
+			assertEquals("a", decoded);
+			
+			// "b"
+			message = scanner.nextLine();
+			root = encoding.createTree(message);
+			encoded = encoding.compressMessage(root, message);
+			assertEquals("1", encoded);
+			decoded = encoding.decompressMessage(root, encoded);
+			assertEquals("b", decoded);
+			
+			// "aB"
+			message = scanner.nextLine();
+			root = encoding.createTree(message);
+			encoded = encoding.compressMessage(root, message);
+			assertEquals("10", encoded);
+			decoded = encoding.decompressMessage(root, encoded);
+			assertEquals("aB", decoded);
+			
+			// "Ab"
+			message = scanner.nextLine();
+			root = encoding.createTree(message);
+			encoded = encoding.compressMessage(root, message);
+			assertEquals("01", encoded);
+			decoded = encoding.decompressMessage(root, encoded);
+			assertEquals("Ab", decoded);
+			
+			// "A"
+			message = scanner.nextLine();
+			root = encoding.createTree(message);
+			encoded = encoding.compressMessage(root, message);
+			assertEquals("1", encoded);
+			decoded = encoding.decompressMessage(root, encoded);
+			assertEquals("A", decoded);
+			
+			// "hi"
+			message = scanner.nextLine();
+			root = encoding.createTree(message);
+			encoded = encoding.compressMessage(root, message);
+			assertEquals("01", encoded);
+			decoded = encoding.decompressMessage(root, encoded);
+			assertEquals("hi", decoded);
+			
+			// "hI there"
+			// tree should look like: (_ means space character)
+			//        8
+			//    4       4
+			//  2   2   e   h
+			// _ I r t        
+			message = scanner.nextLine();
+			root = encoding.createTree(message);
+			encoded = encoding.compressMessage(root, message);
+			assertEquals("11001000011111001010", encoded);
+			decoded = encoding.decompressMessage(root, encoded);
+			assertEquals("hI there", decoded);
 		}
 	}
 }
