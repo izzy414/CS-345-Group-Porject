@@ -209,7 +209,7 @@ public class HuffmanEncoding {
 			
 			if (root.getParent()==null) {
 				String format = format(height, "1");
-				System.out.println("│ \""+root.getSymbol()+"\"  │ 1"+format);
+				System.out.println("│ \""+root.getSymbol()+"\"  │  "+format);
 			}
 			else {
 				String format = format(height, code);
