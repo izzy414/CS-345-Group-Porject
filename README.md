@@ -9,20 +9,32 @@ it to the original string message and displays the tree and a table version of t
 # Table of contents
 
 - Requirements
-- Configuration
+- Program Configuration
+- Test Configuration
 - Authors
 
 
 # Requirements
 
-This module requires no additional modules.
+- JUnit Jupiter (needed for testing)
 
 
-# Configuration
+# Program Configuration
 
-1. Run javac model/*.java to compile all the java files in the model directory (or whatever software used to compile).
+1. Run javac model/*.java to compile all the java files in the model directory from the main file CS-345-Group-Project (or whatever software used to compile).
 2. Run java model.HuffmanEncoding to initiate the program (or whatever software used to run).
 3. Input string into the console and wait for directed output (i.e. tree, table, coded message, and decoded message).
+
+
+# Test Configuration
+Testing was done in Eclipse. 
+
+1. Compile all java files in the testing directory.
+2. Run HuffmanEncodingTest (tests compression and decompression).
+3. Run MinimumPriorityQueueTest (tests Minimum Priority Queue).
+4. Run MoreTests (tests compression and decompression).
+5. Run NodeTest (tests the different node aspects).
+6. Run ProgramTest (tests if the program runs).
 
 
 # Authors
