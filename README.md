@@ -21,12 +21,15 @@ it to the original string message and displays the tree and a table version of t
 
 # Program Configuration
 
+Program Configuration for the console.
+
 1. Run javac model/*.java to compile all the java files in the model directory from the main file CS-345-Group-Project (or whatever software used to compile).
 2. Run java model.HuffmanEncoding to initiate the program (or whatever software used to run).
 3. Input string into the console and wait for directed output (i.e. tree, table, coded message, and decoded message).
 
 
 # Test Configuration
+
 Testing was done in Eclipse. 
 
 1. Compile all java files in the testing directory.
