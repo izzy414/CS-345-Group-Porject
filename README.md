@@ -32,8 +32,7 @@ Program Configuration for the console.
 
 Testing was done in Eclipse. 
 
-1. Compile all java files in the model directory.
-2. Compile all java files in the testing directory.
+1. Run all java files in the model directory.
 3. Run HuffmanEncodingTest (tests compression and decompression).
 4. Run MinimumPriorityQueueTest (tests Minimum Priority Queue).
 5. Run MoreTests (tests compression and decompression).
