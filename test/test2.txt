@@ -1,0 +1,8 @@
+This is a long sentence with a lot of words and spaces.
+There are also multiple lines in this file. 
+I hope this is encoded successfully. 
+I hope this passes the test case. 
+Should I add another line?
+I think I will
+maybe one more line 
+ok that's it.
