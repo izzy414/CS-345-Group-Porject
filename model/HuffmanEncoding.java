@@ -235,7 +235,7 @@ public class HuffmanEncoding {
 			if (root.getParent()==null) {
 				// Hardcodes code to '1'
 				String format = format(height, "1");
-				System.out.println("│ \""+root.getSymbol()+"\"  │  "+format);
+				System.out.println("│ \""+root.getSymbol()+"\"  │ " + "1" + format);
 			}
 			else {
 				String format = format(height, code);
