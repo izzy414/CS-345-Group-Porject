@@ -1,10 +1,17 @@
+// Author: Chris Machado, Isabel Zabalza, Jose Chavez, Michael Sava
+// File name: HuffmanEncoding.java
+// Date: 11/21/2023
+// Class: HuffmanEncoding
+// Purpose: The HuffmanEncoding class is the main class
+//   for the program that takes the user input and uses
+//   that along with the MinimumPriorityQueue class and
+//   the Node class to print out compressed message,
+//   decompressed message, binary tree, and table from
+//   the user input.
 package model;
 
 import java.util.Scanner;
 
-//The HuffmanEncoding class is the main class for the program that takes the user input and uses that along with
-//the MinimumPriorityQueue class and the Node class to print out compressed message, decompressed message, binary tree, and
-//table from the user input.
 public class HuffmanEncoding {
 	private int height;
 	// Accepts the user input and sends it to the compressThenExpand function and
@@ -36,6 +43,8 @@ public class HuffmanEncoding {
 		return str;
 	}
 	
+	// Takes a string and left-pads it with "0"s until the string
+	// has a length of 8. The padded string is returned.
 	private static String padBinaryString(String binary) {
 		int diff = 8 - binary.length();
 		StringBuilder sb = new StringBuilder();
@@ -163,6 +172,7 @@ public class HuffmanEncoding {
 		preOrder(root.getOne(), height+1);
 		preOrder(root.getZero(), height+1);
 	}
+	
 	
 	public void printTable(Node root) {
 		findHeight(root);

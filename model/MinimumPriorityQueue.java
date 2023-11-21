@@ -1,11 +1,11 @@
+// Author: Chris Machado, Isabel Zabalza, Jose Chavez, Michael Sava
+// File name: MinimumPriorityQueue.java
+// Date: 11/21/2023
+// Class: MinimumPriorityQueue
+// Purpose: The MinimumPriorityQueue class is backed
+//   by an array that maintains min-heap order.
 package model;
-/* MinimumPriorityQueue.
- * 
- * This is a minimum priority queue backed by an array that maintains min-heap order.
- * 
- * Author: Jose ___, Michael Sava
- * 
- */
+
 public class MinimumPriorityQueue {
 	private Node[] heap;
 	private int size;

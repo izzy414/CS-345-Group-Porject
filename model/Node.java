@@ -1,6 +1,12 @@
+// Author: Chris Machado, Isabel Zabalza, Jose Chavez, Michael Sava
+// File name: Node.java
+// Date: 11/21/2023
+// Class: Node
+// Purpose: The Node class is used to build
+//   the Huffman tree that we traverse
+//   for compression and decompression.
 package model;
 
-// Author: ____
 public class Node {
 	private Node zero;
 	private Node one;
