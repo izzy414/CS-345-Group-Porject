@@ -1,3 +1,9 @@
+// Authors: Elisa Zabalza, Chris Machado, Jose Chavez, Michael Sava
+// Date: 11/21/23
+// Class: CS 345
+// File name: HuffmanEncodingTest.java
+// Description: This program tests compression and decompression for the HuffmanEncoding.java file.
+
 package test;
 
 import static org.junit.jupiter.api.Assertions.*;
