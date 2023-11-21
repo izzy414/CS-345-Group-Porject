@@ -173,20 +173,26 @@ public class HuffmanEncoding {
 		preOrder(root.getZero(), height+1);
 	}
 	
-	
+	/** printTable - Prints the table with the characters and its code
+	 * @param root - Node type, the root of the tree
+	 */
 	public void printTable(Node root) {
 		findHeight(root);
 		System.out.println("**** TABLE *****");
+		// Line1 is the top line
+		// Line2 is the middle line of the table
+		// Line3 is the bottom line of the table
 		String line1 = "──────";
 		String line2 = "──────";
 		String line3 = "└──────┴";
+		
 		String space = " ";
 		for (int i=0; i< height-4;i++) {
 			line1+= "─";
 			line2+= "─";
 			space+= " ";
 		}
-
+		// Adds the last part of the line of the table
 		line1+= "┐";
 		line2+= "┤";
 		space+= "│";
