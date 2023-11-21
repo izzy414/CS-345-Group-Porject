@@ -1,3 +1,9 @@
+/**
+ * Authors: Isabel Zabalza, Chris Machado, Jose Chavez, Michael Sava
+ * File: MinimumPriorityQueueTest.java
+ * Purpose: Tests various cases to ensure that the MinimumPriorityQueue is working properly
+ */
+
 package test;
 
 import static org.junit.jupiter.api.Assertions.*;
