@@ -10,6 +10,12 @@ public class MinimumPriorityQueue {
 	private Node[] heap;
 	private int size;
 	
+	// This constructor takes a frequencies array and the number of symbols that
+	// the frequency array contains. It creates an heap array that is just large
+	// enough to contain the character leaf nodes in the Huffman tree. The
+	// frequencies array is traversed from the smallest asciiCode to the largest
+	// to create the char nodes which are then added to the heap array in the same
+	// order. This heap is put into min-heap order.
 	public MinimumPriorityQueue(int[] freqs, int symbolCount) {
 		// The most values we can possibly have in our heap at one time is 1+symbolCount (one char node for each unique ASCII character in the original message, plus the null value at index zero).
 		// Since symbolCount will only ever be as large as 256, this is not much space being used up in the worst case and so we will hard code this heap size to 1+symbolCount and never resize
