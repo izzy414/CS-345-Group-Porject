@@ -1,7 +1,7 @@
 // Author: Chris Machado, Isabel Zabalza, Jose Chavez, Michael Sava
 // File name: MinimumPriorityQueue.java
 // Date: 11/21/2023
-// Class: MinimumPriorityQueue
+// Class: CSC 345
 // Purpose: The MinimumPriorityQueue class is backed
 //   by an array that maintains min-heap order.
 package model;

@@ -1,5 +1,7 @@
 /**
  * Authors: Isabel Zabalza, Chris Machado, Jose Chavez, Michael Sava
+ * Date: 11/21/23
+ * Class: CS 345
  * File: MinimumPriorityQueueTest.java
  * Purpose: Tests various cases to ensure that the MinimumPriorityQueue is working properly
  */

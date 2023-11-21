@@ -1,7 +1,7 @@
 // Author: Chris Machado, Isabel Zabalza, Jose Chavez, Michael Sava
 // File name: HuffmanEncoding.java
 // Date: 11/21/2023
-// Class: HuffmanEncoding
+// Class: CSC 345
 // Purpose: The HuffmanEncoding class is the main class
 //   for the program that takes the user input and uses
 //   that along with the MinimumPriorityQueue class and
