@@ -33,7 +33,7 @@ Program Configuration for the console.
 Testing was done in Eclipse. 
 
 1. Run HuffmanEncodingTest (tests compression and decompression).
-2. Run MinimumPriorityQueueTest (tests Minimum Priority Queue).
+2. Run MinimumPriorityQueueTest (tests Minimum Priority Queue aspects).
 3. Run MoreTests (tests compression and decompression).
 4. Run NodeTest (tests the different node aspects).
 5. Run ProgramTest (tests if the program runs).
