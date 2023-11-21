@@ -208,22 +208,32 @@ public class HuffmanEncoding {
 		System.out.println(line3);
 	}
 	
+	/** preOrderPrint - Prints out the character with its code 
+	 * @param root - Node, root of the tree
+	 * @param code - String, code of the character
+	 */
 	private void preOrderPrint(Node root, String code) {
 		if (root ==null) {
 			return;
 		}
 		
+		// Adds '1' to code
 		if (root.getOne()!= null) {
 			preOrderPrint(root.getOne(), code+"1");
 		}
 		
+		// Adds '0' to code
 		if (root.getZero()!= null) {
 			preOrderPrint(root.getZero(), code+"0");
 		}
 		
+		// A leaf node is found, so we print the character and code
+		// i.e. | char | code |
 		if (root.getOne()== null && root.getZero()== null) {
 			
+			// Case for when the tree is one node
 			if (root.getParent()==null) {
+				// Hardcodes code to '1'
 				String format = format(height, "1");
 				System.out.println("│ \""+root.getSymbol()+"\"  │  "+format);
 			}
@@ -234,7 +244,12 @@ public class HuffmanEncoding {
 			return;
 		}
 	}
-	
+
+	/** format - Formats the code with the table length
+	 * @param height 	- Height of the tree
+	 * @param code		- Code of a character
+	 * @return
+	 */
 	private String format(int height, String code) {
 		String retVal = " ";
 		int cdLen = code.length();
