@@ -1,3 +1,11 @@
+// Authors: Elisa Zabalza, Chris Machado, Jose Chavez, Michael Sava
+// Date: 11/21/23
+// Class: CS 345
+// File name: HuffmanEncodingTest.java
+// Description: This program tests the different node aspects like creating the node, testing the frequency of the node,
+// whether the currect symbol gets pulled up, whether zero and one are part of the node as correctly constructed, whether
+// it compares the character values correctly, and whether the internal nodes are created correctly.
+
 package test;
 
 import static org.junit.jupiter.api.Assertions.*;
